@@ -52,7 +52,7 @@ public class Main extends Application {
         MainScreenItems.getChildren().addAll(GoToLogIn, GoToAcc);
         MainScreenItems.setAlignment(Pos.CENTER);
 
-        Image MainScreenImg = new Image(new FileInputStream("C:\\Users\\nisha\\Desktop\\Computer Science\\11.jpg"));
+        Image MainScreenImg = new Image(new FileInputStream("Images\\MainScreenIMG.jpg"));
         ImageView MainScreenImgV = new ImageView(MainScreenImg);
 
         VBox MainScreenImages = new VBox();
@@ -77,6 +77,7 @@ public class Main extends Application {
 
         //Sign up Scene Buttons, Labels, etc.
         Label SignUp = new Label("Sign Up");
+        SignUp.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 20));
         InputUsernameSignUp = new TextField();
         InputPasswordSignUp = new PasswordField();
         ConfirmPassword = new PasswordField();
@@ -137,12 +138,14 @@ public class Main extends Application {
         });
 
         VBox CreateAccSceneItems = new VBox();
+        CreateAccSceneItems.setBackground(new Background(new BackgroundFill(Color.LAVENDER, new CornerRadii(1), null)));
         CreateAccSceneItems.getChildren().addAll(SignUp, InputUsernameSignUp, InputPasswordSignUp, ConfirmPassword, CreateAcc, ExitCreateAcc);
         CreateAccSceneItems.setAlignment(Pos.CENTER);
         CreateAccScene = new Scene(CreateAccSceneItems);
 
         //Login Screen
         Label LoginLabel = new Label("Login");
+        LoginLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 20));
         InputUserLogin = new TextField();
         InputPasswordLogin = new PasswordField();
         InputUserLogin.setPromptText("Username");
@@ -180,6 +183,7 @@ public class Main extends Application {
             primaryStage.setScene(MainScreen);
         });
         VBox LoginScreenItems = new VBox();
+        LoginScreenItems.setBackground(new Background(new BackgroundFill(Color.LAVENDER, new CornerRadii(1), null)));
         LoginScreenItems.getChildren().addAll(LoginLabel, InputUserLogin, InputPasswordLogin, Login, ExitLogin);
         LoginScreenItems.setAlignment(Pos.CENTER);
         LoginScene = new Scene(LoginScreenItems);
