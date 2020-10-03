@@ -86,6 +86,9 @@ public class Main extends Application {
         CreateAcc = new Button("Create");
         CreateAcc.setOnAction(e -> {
             try {
+                if(InputUsernameSignUp.getText().equals("") || InputPasswordSignUp.getText().equals("")) {
+                    OkAlert.popUp("Error", "Please fill out all text boxes.", Color.RED);
+                }
                 if(ConfirmPassword.getText().equals(InputPasswordSignUp.getText())) {
                     Scanner scan = new Scanner(new File("Accounts.txt"));
                     String[] Temp = new String[1000];
@@ -112,10 +115,9 @@ public class Main extends Application {
                     else {
                         OkAlert.popUp("Error","Account with this username has already been taken.", Color.RED);
                     }
-
                 }
-                else {
-                    OkAlert.popUp("Error", "Confirmed password does not match the original.", Color.ORANGERED);
+                else if (!ConfirmPassword.getText().equals(InputPasswordSignUp)){
+                    OkAlert.popUp("Error", "Confirmed password does not match the original.", Color.RED);
                 }
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -155,15 +157,17 @@ public class Main extends Application {
                     line = fileReader.nextLine();
                 }
                 Array = line.split(" ---- ");
+
             } catch (FileNotFoundException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             }
+
 
             if(InputUserLogin.getText().equals(Array[0]) && InputPasswordLogin.getText().equals(Array[1])) {
                 System.out.println("Nice");
             }
             else {
-                OkAlert.popUp("Error", "Username or Password is incorrect.", Color.ORANGERED);
+                OkAlert.popUp("Error", "Username or Password is incorrect.", Color.RED);
             }
             InputUserLogin.clear();
             InputPasswordLogin.clear();
