@@ -5,9 +5,11 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -69,12 +71,12 @@ public class Main extends Application {
                     fw.close();
                     finance.writeUser(InputUsernameSignUp.getText() + " ---- " + InputPasswordSignUp.getText());
                     finance.flush();
-                    OkAlert.popUp("Congratulations!", "Your Account has been created.");
+                    OkAlert.popUp("Congratulations!", "Your Account has been created.", Color.LIME);
                     primaryStage.setScene(MainScreen);
 
                 }
                 else {
-                    OkAlert.popUp("Error", "Confirmed password does not match the original.");
+                    OkAlert.popUp("Error", "Confirmed password does not match the original.", Color.ORANGERED);
                 }
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -122,7 +124,7 @@ public class Main extends Application {
                 System.out.println("Nice");
             }
             else {
-                OkAlert.popUp("Error", "Username or Password is incorrect.");
+                OkAlert.popUp("Error", "Username or Password is incorrect.", Color.ORANGERED);
             }
             InputUserLogin.clear();
             InputPasswordLogin.clear();

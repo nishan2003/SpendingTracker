@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -7,13 +8,12 @@ import javafx.scene.control.*;
 import javafx.geometry.*;
 
 public class OkAlert {
-    public static void popUp(String title, String alert) {
+    public static void popUp(String title, String alert, Color c) {
 
         Stage primaryStage = new Stage();
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.setTitle(title);
         primaryStage.setMinWidth(230);
-
         Label label = new Label();
         label.setText(alert);
         Button Ok = new Button("Ok");
@@ -25,6 +25,8 @@ public class OkAlert {
         VBox layout = new VBox(10);
         layout.getChildren().addAll(label, Ok);
         layout.setAlignment(Pos.CENTER);
+        BackgroundFill b = new BackgroundFill(c, new CornerRadii(1), null);
+        layout.setBackground(new Background(b));
 
         Scene scene = new Scene(layout);
         primaryStage.setScene(scene);
