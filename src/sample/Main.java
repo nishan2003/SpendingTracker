@@ -107,13 +107,13 @@ public class Main extends Application {
         Login = new Button("Login");
         Login.setOnAction(e -> {
             String[] Array = new String[15];
-            String l = null;
+            String line = null;
             try {
                 Scanner fileReader = new Scanner(new File(InputUserLogin.getText()));
                 while (fileReader.hasNext()) {
-                    l = fileReader.nextLine();
+                    line = fileReader.nextLine();
                 }
-                Array = l.split(" ---- ");
+                Array = line.split(" ---- ");
             } catch (FileNotFoundException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             }
