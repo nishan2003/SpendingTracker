@@ -5,11 +5,12 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 
@@ -32,6 +33,7 @@ public class Main extends Application {
 
         //Main Screen Buttons, Labels, etc.
         Label MainScreenLabel = new Label("Financial Log");
+        MainScreenLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 20));
 
         GoToLogIn = new Button("Log In");
         GoToLogIn.setOnAction(e -> {
@@ -49,9 +51,28 @@ public class Main extends Application {
         HBox MainScreenItems = new HBox();
         MainScreenItems.getChildren().addAll(GoToLogIn, GoToAcc);
         MainScreenItems.setAlignment(Pos.CENTER);
+
+        Image MainScreenImg = new Image(new FileInputStream("C:\\Users\\nisha\\Desktop\\Computer Science\\11.jpg"));
+        ImageView MainScreenImgV = new ImageView(MainScreenImg);
+
+        VBox MainScreenImages = new VBox();
+        MainScreenImages.getChildren().addAll(MainScreenImgV);
+        MainScreenImages.setAlignment(Pos.CENTER);
+        MainScreenImages.setMinSize(200, 200);
+        //MainScreenImages.setMaxSize(200 ,200);
+
+        BorderPane RightSideMainPane = new BorderPane();
+        RightSideMainPane.setTop(LabelBox);
+        RightSideMainPane.setCenter(MainScreenItems);
+        RightSideMainPane.setMaxHeight(75);
+        RightSideMainPane.setMaxWidth(150);
+
+
         BorderPane MainScreenPane = new BorderPane();
-        MainScreenPane.setTop(LabelBox);
-        MainScreenPane.setCenter(MainScreenItems);
+        MainScreenPane.setLeft(MainScreenImages);
+        MainScreenPane.setCenter(RightSideMainPane);
+        MainScreenPane.setMaxHeight(100);
+        MainScreenPane.setMaxWidth(300);
         MainScreen = new Scene(MainScreenPane);
 
         //Sign up Scene Buttons, Labels, etc.
@@ -66,13 +87,31 @@ public class Main extends Application {
         CreateAcc.setOnAction(e -> {
             try {
                 if(ConfirmPassword.getText().equals(InputPasswordSignUp.getText())) {
-                    FinanceWrite fw = new FinanceWrite(InputUsernameSignUp.getText(), false);
-                    fw.writeUser(InputUsernameSignUp.getText() + " ---- " + InputPasswordSignUp.getText());
-                    fw.close();
-                    finance.writeUser(InputUsernameSignUp.getText() + " ---- " + InputPasswordSignUp.getText());
-                    finance.flush();
-                    OkAlert.popUp("Congratulations!", "Your Account has been created.", Color.LIME);
-                    primaryStage.setScene(MainScreen);
+                    Scanner scan = new Scanner(new File("Accounts.txt"));
+                    String[] Temp = new String[1000];
+                    Boolean contain = false;
+                    int x = 0;
+                    while(scan.hasNext()) {
+                        Temp[x] = scan.nextLine();
+                        x++;
+                    }
+                    for(int i = 0; i < Temp.length; i++) {
+                        if(InputUsernameSignUp.getText().equals(Temp[i])) {
+                            contain = true;
+                        }
+                    }
+                    if (contain == false) {
+                        FinanceWrite fw = new FinanceWrite(InputUsernameSignUp.getText(), false);
+                        fw.writeUser(InputUsernameSignUp.getText() + " ---- " + InputPasswordSignUp.getText());
+                        fw.close();
+                        finance.writeUser(InputUsernameSignUp.getText());
+                        finance.flush();
+                        OkAlert.popUp("Congratulations!", "Your Account has been created.", Color.LIME);
+                        primaryStage.setScene(MainScreen);
+                    }
+                    else {
+                        OkAlert.popUp("Error","Account with this username has already been taken.", Color.RED);
+                    }
 
                 }
                 else {
@@ -142,8 +181,8 @@ public class Main extends Application {
         LoginScene = new Scene(LoginScreenItems);
 
 
-        primaryStage.setHeight(200);
-        primaryStage.setWidth(200);
+        primaryStage.setHeight(650);
+        primaryStage.setWidth(900);
         primaryStage.setScene(MainScreen);
         primaryStage.show();
     }

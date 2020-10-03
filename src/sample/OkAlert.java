@@ -29,6 +29,8 @@ public class OkAlert {
         layout.setBackground(new Background(b));
 
         Scene scene = new Scene(layout);
+        primaryStage.setWidth(300);
+        primaryStage.setHeight(150);
         primaryStage.setScene(scene);
         primaryStage.showAndWait();
 
