@@ -152,7 +152,7 @@ public class Main extends Application {
         InputPasswordLogin.setPromptText("Password");
         Login = new Button("Login");
         Login.setOnAction(e -> {
-            CheckLogin.Login(InputUserLogin, InputPasswordLogin);
+            CheckLogin.login(InputUserLogin, InputPasswordLogin);
         });
         ExitLogin = new Button("Exit");
         ExitLogin.setOnAction(e -> {

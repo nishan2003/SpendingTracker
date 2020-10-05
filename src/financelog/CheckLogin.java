@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class CheckLogin {
 
-    public static void Login(TextField InputUserLogin, TextField InputPasswordLogin) {
+    public static void login(TextField InputUserLogin, TextField InputPasswordLogin) {
         String[] Array = new String[15];
         String line = null;
         try {
