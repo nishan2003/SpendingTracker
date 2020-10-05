@@ -1,4 +1,4 @@
-package finance;
+package financelog;
 
 
 import javafx.application.Application;

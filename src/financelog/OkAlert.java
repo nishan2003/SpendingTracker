@@ -1,4 +1,4 @@
-package finance;
+package financelog;
 
 import javafx.scene.paint.Color;
 import javafx.stage.*;
