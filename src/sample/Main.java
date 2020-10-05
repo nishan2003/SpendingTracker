@@ -52,7 +52,7 @@ public class Main extends Application {
         MainScreenItems.getChildren().addAll(GoToLogIn, GoToAcc);
         MainScreenItems.setAlignment(Pos.CENTER);
 
-        Image MainScreenImg = new Image(new FileInputStream("Images\\MainScreenIMG.jpg"));
+        Image MainScreenImg = new Image(Main.class.getResourceAsStream("/resources/MainScreenIMG.jpg"));
         ImageView MainScreenImgV = new ImageView(MainScreenImg);
 
         VBox MainScreenImages = new VBox();
