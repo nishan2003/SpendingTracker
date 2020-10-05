@@ -1,39 +1,45 @@
-package sample;
+package finance;
 
-import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
 
-public class OkAlert {
-    public static void popUp(String title, String alert, Color c) {
+public class YesNoAlert {
+    static Boolean answer;
+    public static boolean popUp(String title, String alert) {
 
         Stage primaryStage = new Stage();
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.setTitle(title);
         primaryStage.setMinWidth(230);
+
         Label label = new Label();
         label.setText(alert);
-        Button Ok = new Button("Ok");
-        Ok.setOnAction(e -> {
+        Button Yes = new Button("Yes");
+        Yes.setOnAction(e -> {
+            answer = true;
             primaryStage.close();
         });
+        Yes.setStyle("-fx-background-color: limegreen; -fx-text-fill: white;");
 
+        Button No = new Button("No");
+        No.setOnAction(e -> {
+            answer = false;
+            primaryStage.close();
+        });
+        No.setStyle("-fx-background-color: crimson; -fx-text-fill: white;");
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, Ok);
+        layout.getChildren().addAll(label, Yes, No);
         layout.setAlignment(Pos.CENTER);
-        BackgroundFill b = new BackgroundFill(c, new CornerRadii(1), null);
-        layout.setBackground(new Background(b));
 
         Scene scene = new Scene(layout);
-        primaryStage.setWidth(300);
-        primaryStage.setHeight(150);
         primaryStage.setScene(scene);
         primaryStage.showAndWait();
 
+        return answer;
     }
 
 }

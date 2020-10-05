@@ -1,4 +1,4 @@
-package sample;
+package finance;
 
 import java.io.FileWriter;
 import java.io.IOException;

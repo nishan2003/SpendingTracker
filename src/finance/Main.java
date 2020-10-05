@@ -1,4 +1,4 @@
-package sample;
+package finance;
 
 
 import javafx.application.Application;
