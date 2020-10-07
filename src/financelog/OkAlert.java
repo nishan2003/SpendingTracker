@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 import javafx.geometry.*;
 
 public class OkAlert {
-    public static void popUp(String title, String alert, Color c) {
+    public static void popUp(String title, String alert, Color c, Color c1) {
 
         Stage primaryStage = new Stage();
         primaryStage.initModality(Modality.APPLICATION_MODAL);
@@ -17,6 +17,8 @@ public class OkAlert {
         Label label = new Label();
         label.setText(alert);
         Button Ok = new Button("Ok");
+        Ok.setStyle("-fx-background-color: #FFFFFF");
+        label.setTextFill(c1);
         Ok.setOnAction(e -> {
             primaryStage.close();
         });

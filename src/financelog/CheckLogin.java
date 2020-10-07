@@ -31,7 +31,7 @@ public class CheckLogin {
             primaryStage.setScene(MainMenuScene);
         }
         else {
-            OkAlert.popUp("Error", "Username or Password is incorrect.", Color.RED);
+            OkAlert.popUp("Error", "Username or Password is incorrect.", Color.RED, Color.WHITE);
         }
         InputUserLogin.clear();
         InputPasswordLogin.clear();

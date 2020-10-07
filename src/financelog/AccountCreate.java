@@ -13,7 +13,7 @@ public class AccountCreate {
     public static void createAcc(TextField InputPasswordSignUp, TextField InputUsernameSignUp, TextField ConfirmPassword, Stage primaryStage, Scene MainScreen, FinanceWrite finance) {
         try {
             if(InputUsernameSignUp.getText().equals("") || InputPasswordSignUp.getText().equals("")) {
-                OkAlert.popUp("Error", "Please fill out all text boxes.", Color.RED);
+                OkAlert.popUp("Error", "Please fill out all text boxes.", Color.RED, Color.WHITE);
             }
             if(ConfirmPassword.getText().equals(InputPasswordSignUp.getText())) {
                 Scanner scan = new Scanner(new File("Accounts.txt"));
@@ -35,15 +35,15 @@ public class AccountCreate {
                     fw.close();
                     finance.writeUser(InputUsernameSignUp.getText());
                     finance.flush();
-                    OkAlert.popUp("Congratulations!", "Your Account has been created.", Color.LIME);
+                    OkAlert.popUp("Congratulations!", "Your Account has been created.", Color.rgb(188, 19, 254), Color.WHITE);
                     primaryStage.setScene(MainScreen);
                 }
                 else {
-                    OkAlert.popUp("Error","Account with this username has already been taken.", Color.RED);
+                    OkAlert.popUp("Error","Account with this username has already been taken.", Color.RED, Color.WHITE);
                 }
             }
             else if (!ConfirmPassword.getText().equals(InputPasswordSignUp)){
-                OkAlert.popUp("Error", "Confirmed password does not match the original.", Color.RED);
+                OkAlert.popUp("Error", "Confirmed password does not match the original.", Color.RED, Color.WHITE);
             }
         } catch (IOException ioException) {
             ioException.printStackTrace();
