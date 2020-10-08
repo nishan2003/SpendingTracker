@@ -137,11 +137,17 @@ public class Main extends Application {
 
         //The Main Menu Screen when a user successfully logs in.
         BorderPane MainMenuPane = new BorderPane();
+        ProgressBar pb = new ProgressBar();
+        pb.setProgress(0.5);
+        pb.setStyle("-fx-text-box-border: ##FFFFFF");
+        pb.setStyle("-fx-control-inner-background: ##FFFFFF");
+        pb.setStyle("-fx-accent: #bc13fe");
         Label MainMenuLabel = new Label("Main Menu");
         MainMenuLabel.setFont(Font.font("Aviner", 50));
         MainMenuLabel.setTextFill(Color.WHITE);
         HBox MainMenuItems = new HBox();
         MainMenuPane.setStyle("-fx-background-color: #bc13fe");
+        MainMenuPane.setCenter(pb);
         MainMenuScene = new Scene(MainMenuPane);
 
 

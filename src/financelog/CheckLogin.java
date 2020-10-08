@@ -32,12 +32,15 @@ public class CheckLogin {
             int maxIndex = -1;
             primaryStage.setScene(MainMenuScene);
             Scanner BooleanReader = new Scanner(new File(InputUserLogin.getText()));
+            primaryStage.close();
+            MainMenu.openMainMenu();
             try {
                 BooleanReader.nextLine();
                 String bool = BooleanReader.nextLine();
             } catch (NoSuchElementException ex) {
                 BudgetSetWindow window = new BudgetSetWindow();
                 window.popUp(InputUserLogin.getText());
+
             }
         }
         else {

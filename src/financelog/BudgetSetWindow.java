@@ -29,14 +29,28 @@ public class BudgetSetWindow {
         text.setMaxWidth(250);
         text.setPromptText("Enter a Budget");
         Ok.setOnAction(e -> {
-            primaryStage.close();
-            b = true;
+
             try {
-                FinanceWrite fw = new FinanceWrite(filename, true);
-                fw.writeUser(Boolean.toString(b));
-                fw.close();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
+                b = true;
+                int budget = Integer.parseInt(text.getText());
+                try {
+                    FinanceWrite fw = new FinanceWrite(filename, true);
+                    fw.writeUser(Boolean.toString(b));
+                    fw.close();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                try {
+                    FinanceWrite fw = new FinanceWrite(filename, true);
+                    fw.writeUser(Integer.toString(budget));
+                    fw.close();
+                    primaryStage.close();
+
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            } catch(NumberFormatException ex) {
+                OkAlert.popUp("Error", "Please enter a number.", Color.RED, Color.WHITE);
             }
 
         });
