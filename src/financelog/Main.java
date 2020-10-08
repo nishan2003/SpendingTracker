@@ -120,7 +120,11 @@ public class Main extends Application {
         Login.setStyle("-fx-background-color: #FFFFFF");
         Login.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 15));
         Login.setOnAction(e -> {
-            CheckLogin.login(InputUserLogin, InputPasswordLogin, primaryStage, MainMenuScene);
+            try {
+                CheckLogin.login(InputUserLogin, InputPasswordLogin, primaryStage, MainMenuScene);
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
         });
 
         VBox LoginScreenItems = new VBox();

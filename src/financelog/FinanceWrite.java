@@ -12,8 +12,8 @@ public class FinanceWrite {
         pw = new PrintWriter(fw);
 
     }
-    public void writeUser(String name) {
-        pw.println(name);
+    public void writeUser(String s) {
+        pw.println(s);
     }
 
     public void flush() {
