@@ -12,6 +12,7 @@ import javafx.geometry.*;
 import java.io.IOException;
 
 public class BudgetSetWindow {
+    public static int budget;
     boolean b;
     public void popUp(String filename) {
 
@@ -32,7 +33,7 @@ public class BudgetSetWindow {
 
             try {
                 b = true;
-                int budget = Integer.parseInt(text.getText());
+                budget = Integer.parseInt(text.getText());
                 try {
                     FinanceWrite fw = new FinanceWrite(filename, true);
                     fw.writeUser(Boolean.toString(b));

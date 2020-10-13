@@ -27,14 +27,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Financial Log");
+        primaryStage.setTitle("Login");
 
         String AccFile = "Accounts.txt";
         FinanceWrite finance = new FinanceWrite(AccFile, true); //Writer that writes the account to the file Accounts.txt
 
         //Main Screen Buttons, Labels, etc.
-        Label MainScreenLabel = new Label("Financial Log");
-        MainScreenLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,25));
+        Label MainScreenLabel = new Label("Spending Tracker");
+        MainScreenLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,20));
 
 
         GoToAcc = new Hyperlink("New User? Sign up here");
@@ -111,7 +111,7 @@ public class Main extends Application {
 
         //Login Screen
         Label LoginLabel = new Label("Sign In");
-        LoginLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 15));
+        LoginLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 13));
         InputUserLogin = new TextField();
         InputPasswordLogin = new PasswordField();
         InputUserLogin.setPromptText("Username");

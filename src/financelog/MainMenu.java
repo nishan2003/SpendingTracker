@@ -5,6 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -12,28 +14,67 @@ import javafx.scene.control.*;
 import javafx.geometry.*;
 
 public class MainMenu {
+
     public static void openMainMenu() {
         Stage primaryStage = new Stage();
 
-        TableColumn<TableItems, String> itemColumn = new TableColumn<>("Purchased Item");
-        itemColumn.setMinWidth(320);
+        TableColumn<TableItems, String> itemColumn = new TableColumn<>("Item");
         itemColumn.setCellValueFactory(new PropertyValueFactory<>("Item"));
 
-        TableColumn<TableItems, Integer> priceColumn = new TableColumn<>("Price of Item");
-        priceColumn.setMinWidth(320);
+        TableColumn<TableItems, Integer> priceColumn = new TableColumn<>("Price");
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
 
-        ObservableList Schedules = FXCollections.observableArrayList();
 
         TableView table = new TableView<>();
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.getColumns().addAll(itemColumn, priceColumn);
+        table.setPrefWidth(100);
+        itemColumn.setResizable(false);
+        priceColumn.setResizable(false);
+        ObservableList Schedules = FXCollections.observableArrayList();
 
-        VBox m = new VBox();
-        m.getChildren().addAll(table);
+        TextField ItemInput = new TextField();
+        TextField PriceInput = new TextField();
 
-        Scene s = new Scene(m);
+        Label LogLabel = new Label("Spending Log");
+        LogLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,25));
+        LogLabel.setTextFill(Color.WHITE);
 
-        primaryStage.setScene(s);
+        ItemInput.setPromptText("Item");
+        PriceInput.setPromptText("Price");
+
+        Button add = new Button(" Add ");
+        add.setStyle("-fx-background-color: #FFFFFF");
+        add.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 11));
+        add.setOnAction(e -> {
+            Schedules.add(new TableItems(ItemInput.getText(), Integer.parseInt(PriceInput.getText())));
+            ItemInput.clear();
+            PriceInput.clear();
+            table.setItems(Schedules);
+        });
+
+        Button delete = new Button("Delete");
+        delete.setStyle("-fx-background-color: #FFFFFF");
+        delete.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 11));
+
+
+        int budget = BudgetSetWindow.budget;
+        Label budgetLabel = new Label(Integer.toString(budget));
+
+
+        VBox TableBox = new VBox();
+        HBox buttons = new HBox();
+        buttons.getChildren().addAll(add, delete);
+        buttons.setAlignment(Pos.CENTER);
+        TableBox.getChildren().addAll(LogLabel, table, ItemInput, PriceInput, buttons);
+        BorderPane MainMenuPane = new BorderPane();
+        TableBox.setBackground(new Background(new BackgroundFill(Color.rgb(188, 19, 254), new CornerRadii(1), null)));
+        MainMenuPane.setBackground(new Background(new BackgroundFill(Color.rgb(188, 19, 254), new CornerRadii(1), null)));
+        MainMenuPane.setLeft(TableBox);
+        MainMenuPane.setPadding(new Insets(20,20,20,20));
+        Scene TableViewScene = new Scene(MainMenuPane);
+
+        primaryStage.setScene(TableViewScene);
 
 
         primaryStage.setTitle("Menu");
