@@ -13,6 +13,8 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
 
+import java.util.Scanner;
+
 public class MainMenu {
 
     public static void openMainMenu() {
@@ -26,19 +28,17 @@ public class MainMenu {
 
 
         TableView table = new TableView<>();
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
         table.getColumns().addAll(itemColumn, priceColumn);
-        table.setPrefWidth(100);
-        itemColumn.setResizable(false);
-        priceColumn.setResizable(false);
+        table.setPrefWidth(150);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         ObservableList Schedules = FXCollections.observableArrayList();
 
         TextField ItemInput = new TextField();
         TextField PriceInput = new TextField();
 
-        Label LogLabel = new Label("Spending Log");
+        Label LogLabel = new Label("Spending Log ");
         LogLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,25));
-        LogLabel.setTextFill(Color.WHITE);
 
         ItemInput.setPromptText("Item");
         PriceInput.setPromptText("Price");
@@ -68,8 +68,8 @@ public class MainMenu {
         buttons.setAlignment(Pos.CENTER);
         TableBox.getChildren().addAll(LogLabel, table, ItemInput, PriceInput, buttons);
         BorderPane MainMenuPane = new BorderPane();
-        TableBox.setBackground(new Background(new BackgroundFill(Color.rgb(188, 19, 254), new CornerRadii(1), null)));
-        MainMenuPane.setBackground(new Background(new BackgroundFill(Color.rgb(188, 19, 254), new CornerRadii(1), null)));
+        TableBox.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(1), null)));
+        MainMenuPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(1), null)));
         MainMenuPane.setLeft(TableBox);
         MainMenuPane.setPadding(new Insets(20,20,20,20));
         Scene TableViewScene = new Scene(MainMenuPane);

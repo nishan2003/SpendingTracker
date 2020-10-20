@@ -21,7 +21,7 @@ public class BudgetSetWindow {
         primaryStage.setTitle("Welcome");
         primaryStage.setMinWidth(230);
         Label label = new Label();
-        label.setText("Welcome to Financial Log! Please set a weekly budget.");
+        label.setText("Welcome to Spending Tracker! Please set a weekly budget.");
         label.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,15));
         Button Ok = new Button("Ok");
         Ok.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,15));
