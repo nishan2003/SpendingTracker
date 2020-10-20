@@ -15,7 +15,7 @@ import javafx.geometry.*;
 
 import java.util.Scanner;
 
-public class MainMenu {
+public class Menu {
 
     public static void openMainMenu() {
         Stage primaryStage = new Stage();

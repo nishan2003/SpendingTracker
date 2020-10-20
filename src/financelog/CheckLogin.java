@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
@@ -33,7 +32,7 @@ public class CheckLogin {
             primaryStage.setScene(MainMenuScene);
             Scanner BooleanReader = new Scanner(new File(InputUserLogin.getText()));
             primaryStage.close();
-            MainMenu.openMainMenu();
+            Menu.openMainMenu();
             try {
                 BooleanReader.nextLine();
                 String bool = BooleanReader.nextLine();
