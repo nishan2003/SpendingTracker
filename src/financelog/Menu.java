@@ -1,6 +1,5 @@
 package financelog;
 
-import com.sun.xml.internal.ws.assembler.jaxws.TerminalTubeFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,19 +12,29 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Menu {
 
-    public static void openMainMenu() {
-        Stage primaryStage = new Stage();
+    public static void openMainMenu(FinanceRead financeRead) throws FileNotFoundException {
 
+        LinkedListQueue q = financeRead.user_data;
+
+        q.dequeue();
+        q.dequeue();
+        Object budget_object = q.peekFront();
+        int budget_int = Integer.parseInt((String) budget_object);
+
+
+        Stage primaryStage = new Stage();
+        //TableView Code
         TableColumn<TableItems, String> itemColumn = new TableColumn<>("Item");
         itemColumn.setCellValueFactory(new PropertyValueFactory<>("Item"));
 
         TableColumn<TableItems, Integer> priceColumn = new TableColumn<>("Price");
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
-
 
         TableView table = new TableView<>();
 
@@ -34,12 +43,16 @@ public class Menu {
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         ObservableList Schedules = FXCollections.observableArrayList();
 
+        //Textfields, buttons, and labels for the Main Menu
+
         TextField ItemInput = new TextField();
         TextField PriceInput = new TextField();
 
-        Label LogLabel = new Label("Spending Log ");
+        Label LogLabel = new Label("Spending Log " + budget_object);
+
         LogLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,25));
 
+        //Inputs for the table view
         ItemInput.setPromptText("Item");
         PriceInput.setPromptText("Price");
 
@@ -53,14 +66,15 @@ public class Menu {
             table.setItems(Schedules);
         });
 
-        Button delete = new Button("Delete");
+        Button delete = new Button("Delete"); //Deletes a selected row in the tableview
         delete.setStyle("-fx-background-color: #FFFFFF");
         delete.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 11));
-
-
-        int budget = BudgetSetWindow.budget;
-        Label budgetLabel = new Label(Integer.toString(budget));
-
+        delete.setOnAction(e -> {
+            ObservableList<TableItems> SelectedRow, AllRows;
+            AllRows = table.getItems();
+            SelectedRow = table.getSelectionModel().getSelectedItems();
+            SelectedRow.forEach(AllRows::remove);
+        });
 
         VBox TableBox = new VBox();
         HBox buttons = new HBox();
@@ -75,8 +89,6 @@ public class Menu {
         Scene TableViewScene = new Scene(MainMenuPane);
 
         primaryStage.setScene(TableViewScene);
-
-
         primaryStage.setTitle("Menu");
         primaryStage.setResizable(false);
         primaryStage.setWidth(900);

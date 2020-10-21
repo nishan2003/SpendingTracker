@@ -32,8 +32,10 @@ public class CheckLogin {
             primaryStage.setScene(MainMenuScene);
             Scanner BooleanReader = new Scanner(new File(InputUserLogin.getText()));
             primaryStage.close();
-            Menu.openMainMenu();
             try {
+                FinanceRead f = new FinanceRead(InputUserLogin.getText());
+                f.readAll();
+                Menu.openMainMenu(f);
                 BooleanReader.nextLine();
                 String bool = BooleanReader.nextLine();
             } catch (NoSuchElementException ex) {

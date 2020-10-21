@@ -9,12 +9,13 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class BudgetSetWindow {
-    public static int budget;
+    int budget;
     boolean b;
-    public void popUp(String filename) {
+    public void popUp(String filename) throws FileNotFoundException {
 
         Stage primaryStage = new Stage();
         primaryStage.initModality(Modality.APPLICATION_MODAL);
@@ -32,6 +33,7 @@ public class BudgetSetWindow {
         Ok.setOnAction(e -> {
 
             try {
+
                 b = true;
                 budget = Integer.parseInt(text.getText());
                 try {
@@ -45,7 +47,11 @@ public class BudgetSetWindow {
                     FinanceWrite fw = new FinanceWrite(filename, true);
                     fw.writeUser(Integer.toString(budget));
                     fw.close();
+                    FinanceRead dataReader = new FinanceRead(filename);
+                    dataReader.readAll();
                     primaryStage.close();
+                    Menu.openMainMenu(dataReader);
+
 
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
