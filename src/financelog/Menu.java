@@ -38,6 +38,8 @@ public class Menu {
 
         TableView table = new TableView<>();
 
+        table.setStyle("-fx-selection-bar: gold;");
+
         table.getColumns().addAll(itemColumn, priceColumn);
         table.setPrefWidth(150);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -48,9 +50,11 @@ public class Menu {
         TextField ItemInput = new TextField();
         TextField PriceInput = new TextField();
 
-        Label LogLabel = new Label("Spending Log " + budget_object);
+        Label LogLabel = new Label("Spending Log");
+        Label budget_label = new Label("Your Weekly Budget: " + "$" + (String) budget_object);
 
         LogLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,25));
+        budget_label.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,35));
 
         //Inputs for the table view
         ItemInput.setPromptText("Item");
@@ -82,9 +86,13 @@ public class Menu {
         buttons.setAlignment(Pos.CENTER);
         TableBox.getChildren().addAll(LogLabel, table, ItemInput, PriceInput, buttons);
         BorderPane MainMenuPane = new BorderPane();
+        BorderPane right_pane = new BorderPane();
+        right_pane.setTop(budget_label);
+        right_pane.setPadding(new Insets(0, 30, 0, 0));
         TableBox.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(1), null)));
         MainMenuPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(1), null)));
         MainMenuPane.setLeft(TableBox);
+        MainMenuPane.setRight(right_pane);
         MainMenuPane.setPadding(new Insets(20,20,20,20));
         Scene TableViewScene = new Scene(MainMenuPane);
 
