@@ -50,7 +50,8 @@ public class BudgetSetWindow {
                     FinanceRead dataReader = new FinanceRead(filename);
                     dataReader.readAll();
                     primaryStage.close();
-                    Menu.openMainMenu(dataReader);
+                    Menu m = new Menu();
+                    m.openMainMenu(dataReader);
 
 
                 } catch (IOException ioException) {

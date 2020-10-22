@@ -35,7 +35,8 @@ public class CheckLogin {
             try {
                 FinanceRead f = new FinanceRead(InputUserLogin.getText());
                 f.readAll();
-                Menu.openMainMenu(f);
+                Menu m = new Menu();
+                m.openMainMenu(f);
                 BooleanReader.nextLine();
                 String bool = BooleanReader.nextLine();
             } catch (NoSuchElementException ex) {

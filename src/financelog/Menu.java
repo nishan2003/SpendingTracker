@@ -14,19 +14,26 @@ import javafx.geometry.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
-
-    public static void openMainMenu(FinanceRead financeRead) throws FileNotFoundException {
+    int budget_int;
+    int money_left;
+    public void openMainMenu(FinanceRead financeRead) throws FileNotFoundException {
 
         LinkedListQueue q = financeRead.user_data;
 
-        q.dequeue();
+        String[] user_name = ((String) q.dequeue()).split(" ---- ");
         q.dequeue();
         Object budget_object = q.peekFront();
-        int budget_int = Integer.parseInt((String) budget_object);
-
+        budget_int = Integer.parseInt((String) budget_object);
+        try {
+            Scanner s = new Scanner(new File(user_name[0] + "data"));
+            money_left = s.nextInt();
+        } catch (Exception e) {
+            money_left = budget_int;
+        }
 
         Stage primaryStage = new Stage();
         //TableView Code
@@ -38,7 +45,7 @@ public class Menu {
 
         TableView table = new TableView<>();
 
-        table.setStyle("-fx-selection-bar: gold;");
+        table.setStyle("-fx-selection-bar: #bc13fe;");
 
         table.getColumns().addAll(itemColumn, priceColumn);
         table.setPrefWidth(150);
@@ -52,9 +59,11 @@ public class Menu {
 
         Label LogLabel = new Label("Spending Log");
         Label budget_label = new Label("Your Weekly Budget: " + "$" + (String) budget_object);
+        Label money_left_label = new Label("You have $" + Integer.toString(money_left) + " left.");
 
         LogLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,25));
         budget_label.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,35));
+        money_left_label.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,35));
 
         //Inputs for the table view
         ItemInput.setPromptText("Item");
@@ -64,32 +73,59 @@ public class Menu {
         add.setStyle("-fx-background-color: #FFFFFF");
         add.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 11));
         add.setOnAction(e -> {
-            Schedules.add(new TableItems(ItemInput.getText(), Integer.parseInt(PriceInput.getText())));
-            ItemInput.clear();
-            PriceInput.clear();
-            table.setItems(Schedules);
+            try {
+                Schedules.add(new TableItems(ItemInput.getText(), Integer.parseInt(PriceInput.getText())));
+                table.setItems(Schedules);
+                money_left = money_left - Integer.parseInt(PriceInput.getText());
+                money_left_label.setText("You have $" + Integer.toString(money_left) + " left.");
+                FinanceWrite f = new FinanceWrite(user_name[0] + "data", false);
+                f.writeUser(Integer.toString(money_left));
+                f.flush();
+            }catch(NumberFormatException | IOException i) {
+                OkAlert.popUp("Error", "Please add a number in the price column", Color.RED, Color.WHITE);
+            } finally {
+                ItemInput.clear();
+                PriceInput.clear();
+            }
+
         });
 
         Button delete = new Button("Delete"); //Deletes a selected row in the tableview
         delete.setStyle("-fx-background-color: #FFFFFF");
         delete.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 11));
         delete.setOnAction(e -> {
+            TableItems t = (TableItems) table.getSelectionModel().getSelectedItem();
+            money_left += t.getPrice();
+            money_left_label.setText("You have $" + Integer.toString(money_left) + " left.");
             ObservableList<TableItems> SelectedRow, AllRows;
             AllRows = table.getItems();
             SelectedRow = table.getSelectionModel().getSelectedItems();
             SelectedRow.forEach(AllRows::remove);
+            try {
+                FinanceWrite f = new FinanceWrite(user_name[0] + "data",false);
+                f.writeUser(Integer.toString(money_left));
+                f.flush();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         });
 
-        VBox TableBox = new VBox();
         HBox buttons = new HBox();
         buttons.getChildren().addAll(add, delete);
         buttons.setAlignment(Pos.CENTER);
+
+        VBox budget_labels_box = new VBox();
+        budget_labels_box.getChildren().addAll(budget_label, money_left_label);
+
+        VBox TableBox = new VBox();
         TableBox.getChildren().addAll(LogLabel, table, ItemInput, PriceInput, buttons);
-        BorderPane MainMenuPane = new BorderPane();
-        BorderPane right_pane = new BorderPane();
-        right_pane.setTop(budget_label);
-        right_pane.setPadding(new Insets(0, 30, 0, 0));
         TableBox.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(1), null)));
+
+        BorderPane right_pane = new BorderPane();
+        right_pane.setTop(budget_labels_box);
+        right_pane.setPadding(new Insets(0, 30, 0, 0));
+
+        BorderPane MainMenuPane = new BorderPane();
         MainMenuPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(1), null)));
         MainMenuPane.setLeft(TableBox);
         MainMenuPane.setRight(right_pane);
