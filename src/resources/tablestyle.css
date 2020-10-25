@@ -1,0 +1,29 @@
+.table-view{
+    -fx-background-color: white;
+    -fx-border-color: #bc13fe;
+}
+
+.table-view:focused{
+    -fx-background-color: white;
+}
+
+.table-row-cell{
+-fx-border-color: white;
+-fx-table-cell-border-color: white;}
+
+.table-view .column-header-background .label{
+    -fx-background-color: white;
+    -fx-text-fill: #bc13fe;
+}
+
+.table-view .column-header {
+    -fx-background-color: white;
+}
+
+.table-row-cell{
+    -fx-background-color: transparent;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #bc13fe;
+}
