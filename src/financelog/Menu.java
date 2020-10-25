@@ -12,29 +12,35 @@ import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
+import sun.rmi.runtime.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class Menu {
-    int budget_int;
-    int money_left;
+    double budget_double;
+    double money_left;
     public void openMainMenu(FinanceRead financeRead) throws FileNotFoundException {
+        DecimalFormat decimal_places = new DecimalFormat("#.00");
 
         LinkedListQueue q = financeRead.user_data;
 
         String[] user_name = ((String) q.dequeue()).split(" ---- ");
         q.dequeue();
         Object budget_object = q.peekFront();
-        budget_int = Integer.parseInt((String) budget_object);
+        budget_double = Double.parseDouble((String) budget_object);
         try {
             Scanner s = new Scanner(new File(user_name[0] + "data"));
-            money_left = s.nextInt();
+            money_left = s.nextDouble();
         } catch (Exception e) {
-            money_left = budget_int;
+            money_left = budget_double;
         }
+        decimal_places.format(money_left);
+
 
 
         Stage primaryStage = new Stage();
@@ -42,8 +48,11 @@ public class Menu {
         TableColumn<TableItems, String> itemColumn = new TableColumn<>("Item");
         itemColumn.setCellValueFactory(new PropertyValueFactory<>("Item"));
 
-        TableColumn<TableItems, Integer> priceColumn = new TableColumn<>("Price");
+        TableColumn<TableItems, Double> priceColumn = new TableColumn<>("Price");
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
+
+        itemColumn.setStyle( "-fx-alignment: CENTER;");
+        priceColumn.setStyle( "-fx-alignment: CENTER;");
 
 
         TableView table = new TableView<>();
@@ -61,7 +70,7 @@ public class Menu {
                 String line = "";
                 line = line + s.nextLine();
                 lines = line.split("----");
-                table.getItems().addAll(new TableItems(new String(lines[0]), Integer.parseInt(new String(lines[1]))));
+                table.getItems().addAll(new TableItems(new String(lines[0]), Double.parseDouble(new String(lines[1]))));
             }
 
 
@@ -69,18 +78,35 @@ public class Menu {
 
         }
 
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+        priceColumn.setCellFactory(tc -> new TableCell<TableItems, Double>() {
+
+            @Override
+            protected void updateItem(Double price, boolean empty) {
+                super.updateItem(price, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(currencyFormat.format(price));
+                }
+            }
+        });
+
         //Textfields, buttons, and labels for the Main Menu
 
         TextField ItemInput = new TextField();
         TextField PriceInput = new TextField();
 
         Label LogLabel = new Label("Your Spending");
-        Label budget_label = new Label("Your Weekly Budget: " + "$" + (String) budget_object);
-        Label money_left_label = new Label("You have $" + Integer.toString(money_left) + " left.");
+        Label budget_label = new Label("Your Weekly Budget: " + "$" + decimal_places.format(budget_double));
+        Label money_left_label = new Label("You have $" + decimal_places.format(money_left) + " left.");
 
         LogLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,25));
+        LogLabel.setStyle("-fx-text-fill: #bc13fe;");
         budget_label.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,35));
+        budget_label.setStyle("-fx-text-fill: #bc13fe;");
         money_left_label.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,35));
+        money_left_label.setStyle("-fx-text-fill: #bc13fe;");
 
         //Inputs for the table view
         ItemInput.setPromptText("Item");
@@ -91,11 +117,11 @@ public class Menu {
         add.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 11));
         add.setOnAction(e -> {
             try {
-                table.getItems().add(new TableItems(ItemInput.getText(), Integer.parseInt(PriceInput.getText())));
-                money_left = money_left - Integer.parseInt(PriceInput.getText());
-                money_left_label.setText("You have $" + Integer.toString(money_left) + " left.");
+                table.getItems().add(new TableItems(ItemInput.getText(), Double.parseDouble(PriceInput.getText())));
+                money_left = money_left - Double.parseDouble(PriceInput.getText());
+                money_left_label.setText("You have $" + decimal_places.format(money_left) + " left.");
                 FinanceWrite f = new FinanceWrite(user_name[0] + "data", false);
-                f.writeUser(Integer.toString(money_left));
+                f.writeUser(decimal_places.format(money_left));
                 f.flush();
             }catch(NumberFormatException | IOException i) {
                 OkAlert.popUp("Error", "Please add a number in the price column", Color.RED, Color.WHITE);
@@ -113,14 +139,14 @@ public class Menu {
         delete.setOnAction(e -> {
             TableItems t = (TableItems) table.getSelectionModel().getSelectedItem();
             money_left += t.getPrice();
-            money_left_label.setText("You have $" + Integer.toString(money_left) + " left.");
+            money_left_label.setText("You have $" + decimal_places.format(money_left) + " left.");
             ObservableList<TableItems> SelectedRow, AllRows;
             AllRows = table.getItems();
             SelectedRow = table.getSelectionModel().getSelectedItems();
             SelectedRow.forEach(AllRows::remove);
             try {
                 FinanceWrite f = new FinanceWrite(user_name[0] + "data",false);
-                f.writeUser(Integer.toString(money_left));
+                f.writeUser(decimal_places.format(money_left));
                 f.flush();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -149,6 +175,7 @@ public class Menu {
 
         VBox date_box = new VBox();
         Label date_label = new Label("Date");
+        date_label.setStyle("-fx-text-fill: #bc13fe;");
         date_label.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,25));
         DatePicker spending_calender = new DatePicker();
         date_box.getChildren().addAll(date_label,spending_calender);
@@ -174,7 +201,7 @@ public class Menu {
 
         BorderPane right_pane = new BorderPane();
         right_pane.setTop(budget_labels_box);
-        right_pane.setPadding(new Insets(0, 30, 0, 0));
+        right_pane.setPadding(new Insets(0, 30, 0, 30));
 
         BorderPane MainMenuPane = new BorderPane();
         MainMenuPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(1), null)));
@@ -191,7 +218,7 @@ public class Menu {
         primaryStage.setScene(TableViewScene);
         primaryStage.setTitle("Menu");
         primaryStage.setResizable(false);
-        primaryStage.setWidth(850);
+        primaryStage.setWidth(880);
         primaryStage.setHeight(570);
         primaryStage.show();
 

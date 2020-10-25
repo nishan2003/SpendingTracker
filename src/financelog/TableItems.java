@@ -2,18 +2,18 @@ package financelog;
 
 public class TableItems {
     private String Item;
-    private int Price;
+    private double Price;
 
     public TableItems() {
         this.Item = "";
         this.Price = 0;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return Price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         Price = price;
     }
 
@@ -25,7 +25,7 @@ public class TableItems {
         Item = item;
     }
 
-    public TableItems(String items, int price) {
+    public TableItems(String items, double price) {
         this.Item = items;
         this.Price = price;
     }
