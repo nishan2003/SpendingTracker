@@ -26,5 +26,5 @@
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #bc13fe;
+    -fx-background-color: #FFD700;
 }

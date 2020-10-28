@@ -12,6 +12,7 @@ import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
+import javafx.util.Callback;
 import sun.rmi.runtime.Log;
 
 import java.io.File;
@@ -78,6 +79,7 @@ public class Menu {
 
         }
 
+
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
         priceColumn.setCellFactory(tc -> new TableCell<TableItems, Double>() {
 
@@ -87,10 +89,26 @@ public class Menu {
                 if (empty) {
                     setText(null);
                 } else {
+                    setTextFill(Color.rgb(188,19,254));
                     setText(currencyFormat.format(price));
                 }
             }
         });
+        itemColumn.setCellFactory(tc -> new TableCell<TableItems, String>() {
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if(empty) {
+                    setText(null);
+                }
+                else {
+                    setText(item);
+                    setTextFill(Color.rgb(188,19,254));
+                }
+            }
+        });
+
 
         //Textfields, buttons, and labels for the Main Menu
 
