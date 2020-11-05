@@ -26,5 +26,22 @@
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #FFD700;
+    -fx-background-color: #FDBA21;
+}
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: white;
+}
+
+.combo-box-base {
+    -fx-background-color: white;
+    -fx-border-color: #bc13fe;
+    -fx-text-fill: #bc13fe;
+
+}
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {-fx-border-color: black}
+
+.button {
+    -fx-background-color: white;
+    -fx-border-color: #bc13fe;
+    -fx-text-fill: #bc13fe;
 }

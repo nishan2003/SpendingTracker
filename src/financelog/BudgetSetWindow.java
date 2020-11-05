@@ -9,8 +9,11 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class BudgetSetWindow {
     int budget;
@@ -22,14 +25,14 @@ public class BudgetSetWindow {
         primaryStage.setTitle("Welcome");
         primaryStage.setMinWidth(230);
         Label label = new Label();
-        label.setText("Welcome to Spending Tracker! Please set a weekly budget.");
+        label.setText("Welcome to Spending Tracker! Please set a budget.");
         label.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,15));
         Button Ok = new Button("Ok");
         Ok.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,15));
         Ok.setStyle("-fx-background-color: #FFFFFF");
         TextField text = new TextField();
         text.setMaxWidth(250);
-        text.setPromptText("Enter a Budget");
+        text.setPromptText("Enter a financelog.Budget");
         Ok.setOnAction(e -> {
 
             try {
@@ -44,14 +47,18 @@ public class BudgetSetWindow {
                     ioException.printStackTrace();
                 }
                 try {
+
                     FinanceWrite fw = new FinanceWrite(filename, true);
                     fw.writeUser(Integer.toString(budget));
                     fw.close();
-                    FinanceRead dataReader = new FinanceRead(filename);
-                    dataReader.readAll();
+                    ArrayList data = new ArrayList();
+                    Scanner add_data_arraylist = new Scanner(new File(filename));
+                    while (add_data_arraylist.hasNext()) {
+                        data.add(add_data_arraylist.nextLine());
+                    }
                     primaryStage.close();
                     Menu m = new Menu();
-                    m.openMainMenu(dataReader);
+                    m.openMainMenu(data);
 
 
                 } catch (IOException ioException) {

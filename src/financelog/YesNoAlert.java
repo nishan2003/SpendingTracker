@@ -1,5 +1,6 @@
 package financelog;
 
+import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -17,25 +18,33 @@ public class YesNoAlert {
 
         Label label = new Label();
         label.setText(alert);
-        Button Yes = new Button("Yes");
+        label.setTextFill(Color.WHITE);
+        Button Yes = new Button("Proceed");
         Yes.setOnAction(e -> {
             answer = true;
             primaryStage.close();
         });
-        Yes.setStyle("-fx-background-color: limegreen; -fx-text-fill: white;");
+        Yes.setStyle("-fx-background-color: white; -fx-text-fill: black;");
 
-        Button No = new Button("No");
+        Button No = new Button("Cancel");
         No.setOnAction(e -> {
             answer = false;
             primaryStage.close();
         });
-        No.setStyle("-fx-background-color: crimson; -fx-text-fill: white;");
+        No.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+
+        HBox h = new HBox();
+        h.getChildren().addAll(Yes, No);
+        h.setAlignment(Pos.CENTER);
+        h.setSpacing(10);
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, Yes, No);
+        layout.getChildren().addAll(label, h);
         layout.setAlignment(Pos.CENTER);
-
+        BackgroundFill b = new BackgroundFill(Color.RED, new CornerRadii(1), null);
+        layout.setBackground(new Background(b));
         Scene scene = new Scene(layout);
+        primaryStage.setHeight(150);
         primaryStage.setScene(scene);
         primaryStage.showAndWait();
 

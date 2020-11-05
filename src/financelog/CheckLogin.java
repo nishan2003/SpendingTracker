@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -27,22 +28,20 @@ public class CheckLogin {
 
 
         if(InputUserLogin.getText().equals(Array[0]) && InputPasswordLogin.getText().equals(Array[1])) {
-            String[] Elements = new String[1000];
-            int maxIndex = -1;
             primaryStage.setScene(MainMenuScene);
-            Scanner BooleanReader = new Scanner(new File(InputUserLogin.getText()));
             primaryStage.close();
+            ArrayList<String> data = new ArrayList<String>();
+            Scanner add_data_arraylist = new Scanner(new File(InputUserLogin.getText()));
+            while (add_data_arraylist.hasNext()) {
+                data.add(add_data_arraylist.nextLine());
+            }
             try {
-                FinanceRead f = new FinanceRead(InputUserLogin.getText());
-                f.readAll();
                 Menu m = new Menu();
-                m.openMainMenu(f);
-                BooleanReader.nextLine();
-                String bool = BooleanReader.nextLine();
-            } catch (NoSuchElementException ex) {
+                m.openMainMenu(data);
+                String bool = data.get(1);
+            } catch (IndexOutOfBoundsException e) {
                 BudgetSetWindow window = new BudgetSetWindow();
                 window.popUp(InputUserLogin.getText());
-
             }
         }
         else {
