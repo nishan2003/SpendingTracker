@@ -1,0 +1,25 @@
+.button {
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-text-fill: white;
+}
+.root {
+    -fx-background-image: url("../resources/loginscreen.jpg");
+    -fx-background-repeat: stretch;
+        -fx-background-size: 880 600;
+}
+.borderpane {
+    -fx-background-color: transparent;
+}
+.hbox {
+    -fx-background-color: transparent;
+}
+.text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+}
+.label {
+    -fx-text-fill: white;
+}

@@ -35,14 +35,17 @@ public class CheckLogin {
             while (add_data_arraylist.hasNext()) {
                 data.add(add_data_arraylist.nextLine());
             }
-            try {
+            Menu m = new Menu();
+            m.openMainMenu(data);
+            //String bool = data.get(1);
+            /*try {
                 Menu m = new Menu();
                 m.openMainMenu(data);
                 String bool = data.get(1);
             } catch (IndexOutOfBoundsException e) {
                 BudgetSetWindow window = new BudgetSetWindow();
                 window.popUp(InputUserLogin.getText());
-            }
+            } */
         }
         else {
             OkAlert.popUp("Error", "Username or Password is incorrect.", Color.RED, Color.WHITE);

@@ -1,19 +1,29 @@
-.table-view{
-    -fx-background-color: white;
-    -fx-border-color: #bc13fe;
+.root {
+    -fx-background-image: url("../resources/loginscreen.jpg");
+    -fx-background-repeat: stretch;
+        -fx-background-size: 875 565;
+}
+.borderpane {
+    -fx-background-color: transparent;
+}
+.hbox {
+    -fx-background-color: transparent;
+}.table-view{
+    -fx-background-color: transparent;
+    -fx-border-color: white;
 }
 
 .table-view:focused{
-    -fx-background-color: white;
+    -fx-background-color: transparent;
 }
 
 .table-row-cell{
--fx-border-color: white;
--fx-table-cell-border-color: white;}
+-fx-border-color: transparent;
+-fx-table-cell-border-color: transparent;}
 
 .table-view .column-header-background .label{
     -fx-background-color: white;
-    -fx-text-fill: #bc13fe;
+    -fx-text-fill: black;
     -fx-font-family: "Segoe UI Light";
 }
 
@@ -26,22 +36,31 @@
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #FDBA21;
+    -fx-border-color: white;
 }
 .tab-pane .tab-header-area .tab-header-background {
-    -fx-background-color: white;
+    -fx-background-color: transparent;
 }
 
 .combo-box-base {
-    -fx-background-color: white;
-    -fx-border-color: #bc13fe;
-    -fx-text-fill: #bc13fe;
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-text-fill: white;
 
 }
-.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {-fx-border-color: black}
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {-fx-border-color: orange}
 
 .button {
-    -fx-background-color: white;
-    -fx-border-color: #bc13fe;
-    -fx-text-fill: #bc13fe;
+    -fx-background-color: transparent;
+        -fx-border-color: white;
+        -fx-text-fill: white;
+}
+.text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+}
+.label {
+    -fx-text-fill: white;
 }

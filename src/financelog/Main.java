@@ -34,44 +34,20 @@ public class Main extends Application {
 
         //Main Screen Buttons, Labels, etc.
         Label MainScreenLabel = new Label("Spending Tracker");
-        MainScreenLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,20));
+        MainScreenLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD,35));
 
 
         GoToAcc = new Hyperlink("New User? Sign up here");
-        GoToAcc.setStyle("-fx-border-color: transparent;");
+        GoToAcc.setStyle("-fx-border-color: transparent; -fx-text-fill: white;");
         GoToAcc.setOnAction(e -> {
             primaryStage.setScene(CreateAccScene);
         });
-        VBox LabelBox = new VBox();
-        LabelBox.getChildren().addAll(MainScreenLabel);
-        LabelBox.setAlignment(Pos.CENTER);
 
         HBox MainScreenItems = new HBox();
         MainScreenItems.getChildren().addAll(GoToAcc);
         MainScreenItems.setAlignment(Pos.CENTER);
 
-        Image MainScreenImg = new Image(Main.class.getResourceAsStream("/resources/MainScreenIMG.jpg"));
-        ImageView MainScreenImgV = new ImageView(MainScreenImg);
 
-        VBox MainScreenImages = new VBox();
-        MainScreenImages.getChildren().addAll(MainScreenImgV);
-        MainScreenImages.setAlignment(Pos.CENTER);
-        MainScreenImages.setMinSize(200, 200);
-
-        BorderPane RightSideMainPane = new BorderPane();
-        RightSideMainPane.setTop(LabelBox);
-        RightSideMainPane.setBottom(MainScreenItems);
-        RightSideMainPane.setMaxHeight(75);
-        RightSideMainPane.setMaxWidth(150);
-
-
-        BorderPane MainScreenPane = new BorderPane();
-        MainScreenPane.setLeft(MainScreenImages);
-        MainScreenPane.setCenter(RightSideMainPane);
-        MainScreenPane.setMaxHeight(100);
-        MainScreenPane.setMaxWidth(300);
-        MainScreenPane.setStyle("-fx-background-color: #FFFFFF");
-        MainScreen = new Scene(MainScreenPane);
 
         //Sign up Scene Buttons, Labels, etc.
         Label SignUp = new Label("Sign Up");
@@ -83,18 +59,17 @@ public class Main extends Application {
         ConfirmPassword = new PasswordField();
         ConfirmPassword.setMaxWidth(800);
         InputUsernameSignUp.setPromptText("Create a Username");
+        InputUsernameSignUp.setMaxWidth(475);
+        InputPasswordSignUp.setMaxWidth(475);
         InputPasswordSignUp.setPromptText("Create a Password");
         ConfirmPassword.setPromptText("Confirm Password");
+        ConfirmPassword.setMaxWidth(475);
         CreateAcc = new Button("Create");
-        CreateAcc.setStyle("-fx-background-color: #FFFFFF");
-        CreateAcc.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 15));
         CreateAcc.setOnAction(e -> {
             AccountCreate.createAcc(InputPasswordSignUp, InputUsernameSignUp, ConfirmPassword, primaryStage, MainScreen, finance);
         });
 
         ExitCreateAcc = new Button("Cancel");
-        ExitCreateAcc.setStyle("-fx-background-color: #FFFFFF");
-        ExitCreateAcc.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 15));
         ExitCreateAcc.setOnAction(e -> {
             InputUsernameSignUp.clear();
             InputPasswordSignUp.clear();
@@ -104,21 +79,22 @@ public class Main extends Application {
 
         VBox CreateAccSceneItems = new VBox();
         CreateAccSceneItems.setSpacing(5);
-        CreateAccSceneItems.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(1), null)));
         CreateAccSceneItems.getChildren().addAll(SignUp, InputUsernameSignUp, InputPasswordSignUp, ConfirmPassword, CreateAcc, ExitCreateAcc);
         CreateAccSceneItems.setAlignment(Pos.CENTER);
         CreateAccScene = new Scene(CreateAccSceneItems);
 
         //Login Screen
         Label LoginLabel = new Label("Sign In");
-        LoginLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 13));
+        LoginLabel.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 20));
         InputUserLogin = new TextField();
         InputPasswordLogin = new PasswordField();
         InputUserLogin.setPromptText("Username");
+        InputUserLogin.setMaxWidth(450);
+        InputPasswordLogin.setMaxWidth(450);
+
         InputPasswordLogin.setPromptText("Password");
         Login = new Button("→");
-        Login.setStyle("-fx-background-color: #FFFFFF");
-        Login.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 15));
+        Login.setFont(Font.font("Segoe UI Light", FontWeight.BOLD, 13));
         Login.setOnAction(e -> {
             try {
                 CheckLogin.login(InputUserLogin, InputPasswordLogin, primaryStage, MainMenuScene);
@@ -128,15 +104,21 @@ public class Main extends Application {
         });
 
         VBox LoginScreenItems = new VBox();
-        LoginScreenItems.setSpacing(10);
-        LoginScreenItems.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(1), null)));
-        LoginScreenItems.getChildren().addAll(LoginLabel, InputUserLogin, InputPasswordLogin, Login);
+        LoginScreenItems.setSpacing(15);
+        LoginScreenItems.getChildren().addAll(MainScreenLabel, LoginLabel, InputUserLogin, InputPasswordLogin, Login, GoToAcc);
         LoginScreenItems.setAlignment(Pos.CENTER);
-        RightSideMainPane.setCenter(LoginScreenItems);
+
+        BorderPane MainScreenPane = new BorderPane();
+        MainScreenPane.setCenter(LoginScreenItems);
+        MainScreen = new Scene(MainScreenPane);
 
 
-        primaryStage.setHeight(650);
-        primaryStage.setWidth(900);
+        MainScreen.getStylesheets().add(getClass().getResource("/resources/loginscreen.css").toExternalForm());
+        CreateAccScene.getStylesheets().add(getClass().getResource("/resources/loginscreen.css").toExternalForm());
+
+
+        primaryStage.setHeight(600);
+        primaryStage.setWidth(880);
         primaryStage.setResizable(false);
         primaryStage.setScene(MainScreen);
         primaryStage.show();
