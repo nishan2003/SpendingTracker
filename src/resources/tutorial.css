@@ -1,0 +1,30 @@
+.root {
+    -fx-background-image: url("../resources/loginscreen.jpg");
+    -fx-background-repeat: stretch;
+        -fx-background-size: 400 200;
+}
+.hbox {
+    -fx-background-color: transparent;
+}
+.button {
+    -fx-background-color: transparent;
+        -fx-border-color: white;
+        -fx-text-fill: white;
+}
+.label {
+    -fx-text-fill: white;
+}
+.text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+}
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-border-color: white;
+    -fx-background-color: transparent;
+}
+.spinner {
+  -fx-background-color: transparent;
+}

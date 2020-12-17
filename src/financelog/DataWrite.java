@@ -4,10 +4,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class FinanceWrite {
+public class DataWrite {
     FileWriter fw;
     PrintWriter pw;
-    public FinanceWrite(String file, Boolean b) throws IOException {
+    public DataWrite(String file, Boolean b) throws IOException {
         fw = new FileWriter(file, b);
         pw = new PrintWriter(fw);
 

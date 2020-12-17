@@ -6,17 +6,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 import java.io.*;
-
-import java.util.Scanner;
 
 public class Main extends Application {
     Scene MainScreen, CreateAccScene, LoginScene, MainMenuScene;
@@ -30,7 +27,11 @@ public class Main extends Application {
         primaryStage.setTitle("Login");
 
         String AccFile = "Accounts.txt";
-        FinanceWrite finance = new FinanceWrite(AccFile, true); //Writer that writes the account to the file Accounts.txt
+        DataWrite finance = new DataWrite(AccFile, true); //Writer that writes the account to the file Accounts.txt
+
+        ClassLoader load = Thread.currentThread().getContextClassLoader();
+
+        primaryStage.getIcons().add(new Image(load.getResourceAsStream("app_icon.png")));
 
         //Main Screen Buttons, Labels, etc.
         Label MainScreenLabel = new Label("Spending Tracker");

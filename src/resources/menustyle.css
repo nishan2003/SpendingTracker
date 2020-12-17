@@ -1,14 +1,15 @@
 .root {
     -fx-background-image: url("../resources/loginscreen.jpg");
     -fx-background-repeat: stretch;
-        -fx-background-size: 875 565;
+        -fx-background-size: 885 565;
 }
 .borderpane {
     -fx-background-color: transparent;
 }
 .hbox {
     -fx-background-color: transparent;
-}.table-view{
+}
+.table-view{
     -fx-background-color: transparent;
     -fx-border-color: white;
 }
@@ -19,7 +20,9 @@
 
 .table-row-cell{
 -fx-border-color: transparent;
--fx-table-cell-border-color: transparent;}
+-fx-table-cell-border-color: transparent;
+-fx-background-color: transparent;
+}
 
 .table-view .column-header-background .label{
     -fx-background-color: white;
@@ -29,10 +32,6 @@
 
 .table-view .column-header {
     -fx-background-color: white;
-}
-
-.table-row-cell{
-    -fx-background-color: transparent;
 }
 
 .table-row-cell:selected {
@@ -64,3 +63,12 @@
 .label {
     -fx-text-fill: white;
 }
+.date-picker > .arrow-button {
+    -fx-background-color: white;
+}
+.chart-pie-label {
+    -fx-fill: white;
+    -fx-font-size: 1em;
+}
+
+

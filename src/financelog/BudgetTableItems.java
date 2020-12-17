@@ -1,12 +1,22 @@
 package financelog;
 
-public class BudgetItems {
+public class BudgetTableItems {
     private String budget_name;
     private double budget;
+    private double moneyleft;
 
-    public BudgetItems() {
+    public BudgetTableItems() {
         this.budget_name = "";
         this.budget = 0;
+        this.moneyleft = 0;
+    }
+
+    public double getMoneyleft() {
+        return moneyleft;
+    }
+
+    public void setMoneyleft(double moneyleft) {
+        this.moneyleft = moneyleft;
     }
 
     public double getBudget() {
@@ -25,8 +35,9 @@ public class BudgetItems {
         this.budget_name = budget_name;
     }
 
-    public BudgetItems(String budget_name, double budget) {
+    public BudgetTableItems(String budget_name, double budget, double moneyleft) {
         this.budget_name = budget_name;
         this.budget = budget;
+        this.moneyleft = moneyleft;
     }
 }

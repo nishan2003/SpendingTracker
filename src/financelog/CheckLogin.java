@@ -8,8 +8,10 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class CheckLogin {
@@ -28,7 +30,6 @@ public class CheckLogin {
 
 
         if(InputUserLogin.getText().equals(Array[0]) && InputPasswordLogin.getText().equals(Array[1])) {
-            primaryStage.setScene(MainMenuScene);
             primaryStage.close();
             ArrayList<String> data = new ArrayList<String>();
             Scanner add_data_arraylist = new Scanner(new File(InputUserLogin.getText()));
@@ -36,16 +37,39 @@ public class CheckLogin {
                 data.add(add_data_arraylist.nextLine());
             }
             Menu m = new Menu();
-            m.openMainMenu(data);
-            //String bool = data.get(1);
-            /*try {
-                Menu m = new Menu();
-                m.openMainMenu(data);
-                String bool = data.get(1);
+            BudgetData no_category = null;
+            ArrayList<BudgetData> no_budget_categories = new ArrayList<>();
+            try {
+                String month = data.get(1);
             } catch (IndexOutOfBoundsException e) {
-                BudgetSetWindow window = new BudgetSetWindow();
+                Calendar c = Calendar.getInstance();
+                data.add(Integer.toString(c.get(Calendar.MONTH)) + " " + Integer.toString(c.get(Calendar.YEAR)));
+
+                no_category = new BudgetData("No Category", Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, new ArrayList<>());
+                no_budget_categories.add(no_category);
+                /*try {
+                    DataWrite dataWrite = new DataWrite(InputUserLogin.getText(), true);
+                    dataWrite.writeUser(no_category.name);
+                    dataWrite.writeUser(Double.toString(no_category.budget));
+                    dataWrite.writeUser(Double.toString(no_category.money_left));
+                    dataWrite.writeUser("");
+                    dataWrite.writeUser(">>>>>>>>");
+                } catch (IOException f) {
+
+                } */
+
+                Tutorial window = new Tutorial();
                 window.popUp(InputUserLogin.getText());
-            } */
+            } finally {
+                try {
+                    m.openMainMenu(data, no_budget_categories);
+                } catch (IOException | ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
         }
         else {
             OkAlert.popUp("Error", "Username or Password is incorrect.", Color.RED, Color.WHITE);
