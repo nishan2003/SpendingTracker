@@ -1,4 +1,4 @@
-package financelog;
+package spendingtracker;
 
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;

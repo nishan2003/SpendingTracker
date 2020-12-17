@@ -1,4 +1,4 @@
-package financelog;
+package spendingtracker;
 
 public class ViewTransactionItems {
     private String item_name;

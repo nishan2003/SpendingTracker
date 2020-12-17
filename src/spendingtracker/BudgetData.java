@@ -1,4 +1,4 @@
-package financelog;
+package spendingtracker;
 
 import java.util.ArrayList;
 

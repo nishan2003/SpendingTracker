@@ -1,4 +1,4 @@
-package financelog;
+package spendingtracker;
 
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;

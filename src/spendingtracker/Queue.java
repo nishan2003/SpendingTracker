@@ -1,4 +1,4 @@
-package financelog;
+package spendingtracker;
 
 public interface Queue {
     public void enqueue(Object a);

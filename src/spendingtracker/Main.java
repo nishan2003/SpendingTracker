@@ -1,4 +1,4 @@
-package financelog;
+package spendingtracker;
 
 
 import javafx.application.Application;
@@ -10,7 +10,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 
 import java.io.*;

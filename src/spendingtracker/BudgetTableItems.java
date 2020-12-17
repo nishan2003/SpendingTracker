@@ -1,4 +1,4 @@
-package financelog;
+package spendingtracker;
 
 public class BudgetTableItems {
     private String budget_name;

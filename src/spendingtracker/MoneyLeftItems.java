@@ -1,4 +1,4 @@
-package financelog;
+package spendingtracker;
 
 public class MoneyLeftItems {
     private String name;

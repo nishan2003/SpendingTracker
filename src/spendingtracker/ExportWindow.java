@@ -1,19 +1,12 @@
-package financelog;
+package spendingtracker;
 
-import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
-import jdk.internal.org.objectweb.asm.Handle;
-
-import java.util.ArrayList;
 
 public class ExportWindow {
     String name;

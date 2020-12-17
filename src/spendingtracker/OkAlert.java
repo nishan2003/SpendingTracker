@@ -1,4 +1,4 @@
-package financelog;
+package spendingtracker;
 
 import javafx.scene.paint.Color;
 import javafx.stage.*;
